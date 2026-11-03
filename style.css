@@ -1,0 +1,737 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700;900&family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
+:root{
+  --bg-washi:#ffffff;
+  --bg-washi-soft:#f4f4f1;
+  --moss:#7CA23C;
+  --moss-deep:#4C6B28;
+  --yellowgreen:#9ec26a;
+  --yellowgreen-soft:#e3edd2;
+  --ink:#161512;
+  --gold:#D97B87;
+  --pink:#D97B87;
+  --line:rgba(22,21,18,0.18);
+}
+/* 年配の方にも読みやすいよう、基準の文字サイズを大きめ・コントラストを高めに設定 */
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth; font-size:116%;}
+body{
+  background:var(--bg-washi);
+  color:var(--ink);
+  font-family:"Noto Serif JP", serif;
+  line-height:1.95;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit; text-decoration:none;}
+img{max-width:100%; display:block;}
+
+.label{
+  font-family:"Noto Sans JP", sans-serif;
+  font-size:0.8rem;
+  letter-spacing:0.24em;
+  color:var(--moss);
+  font-weight:500;
+}
+
+/* ===== ヘッダー（バナーナビ） ===== */
+/* ===== マストヘッド（共通レイアウト：左=ロゴ・キャッチ／右=電話・タグライン） ===== */
+.masthead{
+  border-bottom:1px solid var(--line);
+  background:var(--bg-washi);
+}
+.masthead-inner{
+  max-width:1080px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:20px;
+  padding:24px 28px;
+}
+.mh-left{display:flex; align-items:center; gap:16px;}
+.mh-emblem{width:92px; height:92px; flex-shrink:0; object-fit:contain;}
+.mh-name-block{line-height:1.3; min-width:0;}
+.mh-sect{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.72rem; letter-spacing:0.08em;
+  color:var(--moss-deep); font-weight:500;
+}
+.mh-name{
+  font-weight:700; color:var(--ink); margin:2px 0 6px; white-space:nowrap;
+}
+.mh-name .mh-gou{font-size:1.05rem; letter-spacing:0.12em; margin-right:0.5em;}
+.mh-name .mh-ji{font-size:1.9rem; letter-spacing:0.2em;}
+.mh-catch{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.74rem; letter-spacing:0.05em;
+  color:var(--moss-deep);
+}
+.mh-right{text-align:right;}
+.mh-tel{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:"Noto Serif JP", serif; font-size:1.3rem; font-weight:700;
+  color:var(--ink); margin-bottom:6px;
+}
+.mh-tel-icon{width:20px; height:20px; object-fit:contain;}
+.mh-tagline{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.8rem; letter-spacing:0.03em;
+  color:var(--moss-deep); line-height:1.6;
+}
+@media (max-width:700px){
+  .masthead-inner{flex-direction:column; align-items:flex-start; text-align:left;}
+  .mh-right{text-align:left;}
+  .mh-emblem{width:72px; height:72px;}
+  .mh-name .mh-ji{font-size:1.6rem;}
+  .mh-catch{font-size:0.7rem; letter-spacing:0.02em;}
+}
+
+header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(245,242,231,0.94);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:1080px; margin:0 auto;
+  display:flex; align-items:center; justify-content:center;
+  flex-wrap:wrap; row-gap:10px;
+  padding:14px 28px;
+  position:relative;
+}
+.brand-mini{
+  display:none;
+  font-size:0.95rem; font-weight:700; letter-spacing:0.06em; color:var(--ink);
+}
+@media (max-width:780px){
+  .nav-inner{justify-content:space-between;}
+  .brand-mini{display:block;}
+}
+.brand{
+  font-size:1.0rem; font-weight:700; letter-spacing:0.06em;
+  display:flex; align-items:center; gap:10px;
+  white-space:nowrap;
+}
+.brand svg{width:26px; height:26px; flex-shrink:0;}
+.brand .sect{
+  font-family:"Noto Sans JP", sans-serif;
+  font-size:0.62rem; letter-spacing:0.08em; font-weight:400;
+  display:block; color:var(--moss); margin-bottom:2px;
+  white-space:nowrap;
+}
+nav ul{list-style:none; display:flex; align-items:center; flex-wrap:wrap; row-gap:10px; gap:28px;}
+nav a{
+  font-family:"Noto Sans JP", sans-serif;
+  font-size:0.82rem; letter-spacing:0.06em;
+  position:relative; padding-bottom:4px;
+  white-space:nowrap;
+}
+nav a::after{
+  content:""; position:absolute; left:0; bottom:0; width:0; height:1px;
+  background:var(--gold); transition:width .3s ease;
+}
+nav a:hover::after, nav a.active::after{width:100%;}
+nav a.active{color:var(--moss-deep); font-weight:500;}
+.menu-btn{display:none; background:none; border:none; font-size:1.4rem; color:var(--moss); cursor:pointer;}
+
+/* ===== More ドロップダウン ===== */
+.nav-more{position:relative;}
+.nav-more > a::after{display:none;}
+.nav-more .caret{font-size:0.65em; margin-left:4px;}
+.nav-more-menu{
+  position:absolute; top:100%; left:50%; transform:translateX(-50%);
+  background:var(--bg-washi); border:1px solid var(--line);
+  min-width:180px; padding:6px 0; margin-top:14px;
+  opacity:0; visibility:hidden; transition:opacity .2s ease;
+}
+.nav-more:hover .nav-more-menu, .nav-more:focus-within .nav-more-menu{opacity:1; visibility:visible;}
+.nav-more-menu li{list-style:none;}
+.nav-more-menu a{display:block; padding:12px 20px; font-size:0.82rem;}
+.nav-more-menu a::after{display:none;}
+.nav-more-menu a:hover{background:var(--bg-washi-soft);}
+@media (max-width:780px){
+  .nav-more-menu{
+    position:static; transform:none; opacity:1; visibility:visible;
+    border:none; padding:0; margin:0; display:none;
+  }
+  .nav-more.open .nav-more-menu{display:block;}
+  .nav-more-menu a{padding:14px 44px; border-top:1px solid var(--line);}
+}
+
+@media (max-width:780px){
+  nav ul{
+    position:absolute; top:100%; left:0; right:0;
+    flex-direction:column; gap:0;
+    background:var(--bg-washi);
+    border-bottom:1px solid var(--line);
+    max-height:0; overflow:hidden; transition:max-height .35s ease;
+  }
+  nav ul.open{max-height:280px;}
+  nav ul li{border-top:1px solid var(--line);}
+  nav ul li a{display:block; padding:16px 28px;}
+  .menu-btn{display:block;}
+}
+
+/* ===== ページヘッダー（下層ページ用の簡易ヒーロー） ===== */
+.page-hero{
+  position:relative;
+  padding:90px 24px 70px;
+  text-align:center;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--yellowgreen-soft) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-washi) 0%, var(--bg-washi-soft) 100%);
+}
+.page-hero .label{margin-bottom:16px;}
+.page-hero h1{
+  font-size:clamp(1.9rem, 4.4vw, 2.7rem);
+  font-weight:900; letter-spacing:0.12em; color:var(--moss-deep);
+}
+.page-hero p{
+  margin-top:16px; font-size:1rem; letter-spacing:0.03em; color:var(--ink); max-width:480px;
+  margin-left:auto; margin-right:auto;
+}
+
+/* 写真つきページヘッダー */
+.page-hero.has-photo{
+  padding:0; min-height:clamp(220px, 34vw, 380px);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background-color:#222; background-size:cover; background-position:var(--hero-pos, center);
+  background-image:linear-gradient(rgba(0,0,0,0.38), rgba(0,0,0,0.38)), var(--hero-img);
+}
+.page-hero.has-photo h1, .page-hero.has-photo p{color:#fff; text-shadow:0 1px 8px rgba(0,0,0,0.55); position:relative;}
+.page-hero.has-photo p{max-width:none; padding:0 20px;}
+
+/* ===== トップ限定ヒーロー ===== */
+.hero{
+  position:relative;
+  min-height:82vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  padding:120px 24px 80px;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--yellowgreen-soft) 0%, transparent 55%),
+    linear-gradient(180deg, var(--bg-washi) 0%, var(--bg-washi-soft) 100%);
+}
+.hero-silhouette{
+  position:absolute; bottom:0; left:0; width:100%; height:auto;
+  color:var(--moss); opacity:0.16;
+}
+.hero .label{margin-bottom:22px;}
+.hero h1{
+  font-size:clamp(2.1rem, 5.6vw, 3.8rem);
+  font-weight:900; letter-spacing:0.12em; line-height:1.45; color:var(--moss-deep); z-index:1;
+}
+.hero p.sub{
+  margin-top:22px; font-size:1.08rem; letter-spacing:0.04em; color:var(--ink);
+  z-index:1; max-width:520px;
+}
+.hero-divider{margin-top:44px; width:56px; height:2px; background:var(--gold); z-index:1;}
+
+/* ===== 共通セクション ===== */
+section{padding:100px 24px;}
+.section-inner{max-width:1080px; margin:0 auto;}
+.section-head{text-align:center; margin-bottom:60px;}
+.section-head .label{margin-bottom:14px;}
+.section-head h2{
+  font-size:clamp(1.6rem, 3.2vw, 2.2rem); font-weight:700; letter-spacing:0.14em; color:var(--moss-deep);
+}
+.section-head .en{
+  display:block; margin-top:10px;
+  font-family:"Noto Sans JP", sans-serif;
+  font-size:0.7rem; letter-spacing:0.22em; color:var(--gold); text-transform:uppercase;
+}
+.bg-soft{background:var(--bg-washi-soft);}
+
+/* ===== 由緒／ご案内 テキストブロック ===== */
+.yuisho-grid{display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start;}
+.yuisho-text p{margin-bottom:1.4em; font-size:1.06rem;}
+.yuisho-text p:last-child{margin-bottom:0;}
+.jiisoku{
+  border:1px solid var(--line); border-left:3px solid var(--gold);
+  padding:22px 26px;
+  background:transparent;
+  font-size:0.98rem;
+  line-height:1.95;
+  color:var(--ink);
+}
+.jiisoku .cite{
+  display:block; margin-top:14px;
+  font-family:"Noto Sans JP", sans-serif;
+  font-size:0.72rem; letter-spacing:0.1em; color:var(--gold);
+}
+.frame-photo{
+  position:relative;
+  border:1px solid var(--line);
+  background:linear-gradient(160deg, var(--yellowgreen-soft), var(--bg-washi));
+  aspect-ratio:3/4;
+  display:flex; align-items:center; justify-content:center;
+  padding:14px;
+}
+.frame-photo .inner{
+  width:100%; height:100%;
+  border:1px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:10px;
+  color:var(--moss);
+  overflow:hidden;
+}
+.frame-photo .inner svg{width:38px; height:38px; opacity:0.6;}
+.frame-photo .inner span{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.76rem; letter-spacing:0.08em; color:var(--moss);
+}
+.frame-photo .inner img{width:100%; height:100%; object-fit:cover; display:block;}
+.frame-photo .inner.has-photo{padding:0;}
+@media (max-width:780px){
+  .yuisho-grid{grid-template-columns:1fr; gap:40px;}
+}
+
+/* ===== 行事リスト ===== */
+.gyoji-list{display:flex; flex-direction:column;}
+.gyoji-item{
+  display:grid; grid-template-columns:120px 1fr 220px; gap:32px; align-items:center;
+  padding:30px 0; border-top:1px solid var(--line);
+}
+.gyoji-list .gyoji-item:last-child{border-bottom:1px solid var(--line);}
+.gyoji-month{font-family:"Noto Sans JP", sans-serif; font-size:0.85rem; letter-spacing:0.12em; color:var(--gold);}
+.gyoji-name{font-size:1.1rem; font-weight:700; color:var(--moss-deep); letter-spacing:0.05em;}
+.gyoji-desc{font-family:"Noto Sans JP", sans-serif; font-size:0.92rem; color:var(--ink); line-height:1.75;}
+@media (max-width:780px){
+  .gyoji-item{grid-template-columns:1fr; gap:8px; padding:24px 0;}
+}
+.gallery-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:72px;}
+.gallery-strip .frame-photo{aspect-ratio:1/1;}
+@media (max-width:780px){
+  .gallery-strip{grid-template-columns:repeat(2,1fr);}
+}
+
+/* ===== ご先祖とともに（読み物ページ） ===== */
+.essay{
+  max-width:720px; margin:0 auto;
+}
+.essay p{font-size:1.1rem; margin-bottom:1.6em; letter-spacing:0.02em;}
+.essay p:last-child{margin-bottom:0;}
+.essay .drop{
+  font-size:1.4em; color:var(--moss-deep); font-weight:700;
+}
+.bell-divider{
+  width:100%; display:flex; align-items:center; justify-content:center; gap:16px;
+  margin:56px 0; color:var(--gold); opacity:0.7;
+}
+.bell-divider::before, .bell-divider::after{content:""; flex:1; height:1px; background:var(--line);}
+
+/* ===== アクセス ===== */
+.access-grid{display:grid; grid-template-columns:1fr 1fr; gap:64px;}
+.access-info dl{display:flex; flex-direction:column; gap:22px;}
+.dl-divider{border-top:1px solid var(--line); margin:2px 0;}
+.access-info dt{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.72rem; letter-spacing:0.16em; color:var(--gold); margin-bottom:6px;
+}
+.access-info dd{font-size:1.05rem;}
+.map-box{border:1px solid var(--line); aspect-ratio:4/3; overflow:hidden;}
+.map-box iframe{width:100%; height:100%; border:0; filter:grayscale(0.15) sepia(0.08);}
+@media (max-width:780px){
+  .access-grid{grid-template-columns:1fr; gap:40px;}
+}
+
+/* ===== 西円寺の一年（月別タイムライン） ===== */
+.month-strip{
+  display:flex; gap:18px; overflow-x:auto; padding:8px 4px 24px;
+  scroll-snap-type:x proximity;
+}
+.month-strip::-webkit-scrollbar{height:6px;}
+.month-strip::-webkit-scrollbar-thumb{background:var(--yellowgreen-soft); border-radius:3px;}
+.month-card{
+  flex:0 0 auto; width:180px;
+  scroll-snap-align:start;
+  border:1px solid var(--line);
+  background:var(--bg-washi);
+  padding:24px 20px;
+  display:flex; flex-direction:column; gap:10px;
+}
+.month-card .m{
+  font-family:"Noto Sans JP", sans-serif;
+  font-size:0.7rem; letter-spacing:0.16em; color:var(--gold);
+}
+.month-card .name{
+  font-size:1.05rem; font-weight:700; color:var(--moss-deep); letter-spacing:0.04em;
+}
+.month-card .date{
+  font-family:"Noto Sans JP", sans-serif;
+  font-size:0.76rem; color:var(--ink); opacity:0.65; line-height:1.6;
+}
+
+/* ===== 法要行事カテゴリ ===== */
+.category-block + .category-block{margin-top:88px;}
+.category-head{
+  display:flex; align-items:baseline; gap:14px;
+  margin-bottom:34px; padding-bottom:14px;
+  border-bottom:1px solid var(--line);
+}
+.category-head .num{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.72rem; letter-spacing:0.12em; color:var(--gold);
+}
+.category-head h3{
+  font-size:1.3rem; font-weight:700; letter-spacing:0.08em; color:var(--moss-deep);
+}
+.event-list{display:flex; flex-direction:column;}
+.event-card{
+  display:grid; grid-template-columns:26px 1fr; gap:18px;
+  padding:26px 0; border-top:1px solid var(--line);
+}
+.event-card.with-thumb{grid-template-columns:26px 1fr 200px;}
+.event-thumb{
+  width:200px; height:200px; align-self:start;
+  border:1px solid var(--line);
+  background:var(--bg-washi-soft);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--moss);
+  overflow:hidden;
+}
+.event-thumb svg{width:40px; height:40px; opacity:0.55;}
+.event-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+@media (max-width:700px){
+  .event-card.with-thumb{grid-template-columns:26px 1fr; }
+  .event-thumb{grid-column:2; width:100%; height:220px; margin-top:10px;}
+}
+.event-list .event-card:last-child{border-bottom:1px solid var(--line);}
+.event-card .dot{
+  width:8px; height:8px; border-radius:50%; background:var(--yellowgreen);
+  margin-top:10px;
+}
+.event-card h4{
+  font-size:1.02rem; font-weight:700; color:var(--moss-deep); letter-spacing:0.03em; margin-bottom:6px;
+}
+.event-card .when{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.76rem; color:var(--gold); letter-spacing:0.06em; margin-bottom:8px; display:block;
+}
+.event-card p{font-size:1rem; color:var(--ink); max-width:640px;}
+.event-meta{display:flex; flex-direction:column; gap:4px; margin-bottom:12px;}
+.event-meta div{display:flex; gap:10px; align-items:baseline;}
+.event-meta dt{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.78rem; font-weight:700;
+  color:var(--gold); flex-shrink:0; width:3.2em;
+}
+.event-meta dd{font-family:"Noto Sans JP", sans-serif; font-size:0.92rem; color:var(--ink);}
+h4[id], h4.jump-target{scroll-margin-top:140px;}
+.event-card .links{display:flex; flex-wrap:wrap; gap:14px; margin-top:10px;}
+.event-card .links a{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.85rem; color:var(--moss-deep);
+  border-bottom:1px solid var(--gold); padding-bottom:2px;
+}
+
+.tag-row{display:flex; flex-wrap:wrap; gap:10px 14px; margin-top:6px;}
+.tag-row span{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.78rem;
+  padding:6px 14px; border:1px solid var(--line); color:var(--moss-deep);
+}
+
+/* ===== 年間法要行事（縦書きカレンダー） ===== */
+.nenkanhouyou{
+  position:relative;
+  background:var(--bg-washi-soft);
+  border:1px solid var(--line);
+  padding:56px 30px 40px;
+  overflow-x:auto;
+}
+.nenkanhouyou-icon{position:absolute; top:22px; right:30px; width:44px; height:auto; color:var(--moss);}
+.nenkanhouyou-scroll{
+  display:flex; flex-direction:row-reverse; flex-wrap:wrap; align-items:flex-start;
+  justify-content:flex-end; gap:28px 22px; padding-top:10px;
+}
+.v-title{
+  writing-mode:vertical-rl; font-size:1.35rem; font-weight:900; letter-spacing:0.4em;
+  color:var(--moss-deep); padding-left:26px; border-left:1px solid var(--line); align-self:stretch;
+}
+.v-group{writing-mode:vertical-rl;}
+.v-month{font-size:1.15rem; font-weight:700; letter-spacing:0.25em; color:var(--moss-deep);}
+.v-month-blank{visibility:hidden;}
+.v-name{font-size:1rem; font-weight:700; letter-spacing:0.14em; color:var(--ink);}
+.v-name{color:var(--moss-deep); transition:color .2s, background-color .2s;}
+.v-name:hover{color:#fff; background-color:var(--pink);}
+.v-line{writing-mode:vertical-rl; font-family:"Noto Sans JP", sans-serif; font-size:0.82rem; letter-spacing:0.04em; color:var(--ink);}
+@media (max-width:780px){
+  .nenkanhouyou{padding:56px 18px 30px;}
+  .nenkanhouyou-scroll{gap:24px;}
+}
+
+/* ===== フッター ===== */
+footer{background:var(--moss-deep); color:var(--bg-washi); padding:56px 24px 30px; text-align:center;}
+.footer-links{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:12px 30px;
+  margin-bottom:30px; font-family:"Noto Sans JP", sans-serif; font-size:0.85rem; letter-spacing:0.05em;
+}
+.footer-links a{padding-bottom:3px; border-bottom:1px solid transparent;}
+.footer-links a:hover{border-color:var(--pink);}
+.foot-name{
+  font-weight:700; letter-spacing:0.3em; margin-bottom:16px;
+}
+.foot-name .fn-small{font-size:1.0rem;}
+.foot-name .fn-large{font-size:1.5rem;}
+.foot-addr, .foot-tel{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.9rem; letter-spacing:0.04em;
+  margin-bottom:8px; opacity:0.92;
+}
+.footer-sns{display:flex; justify-content:center; gap:18px; margin:22px 0 26px;}
+.footer-sns a{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.78rem; letter-spacing:0.05em;
+  border:1px solid rgba(245,242,231,0.35); padding:7px 20px;
+}
+.footer-sns a:hover{border-color:var(--pink);}
+.foot-copy{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.75rem; letter-spacing:0.06em; opacity:0.75;
+  border-top:1px solid rgba(245,242,231,0.25); padding-top:20px;
+}
+
+/* ===== ヒーロー キャッチコピー ===== */
+.hero .catch{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.82rem; letter-spacing:0.14em;
+  color:var(--gold); margin-bottom:18px; line-height:1.9; z-index:1;
+}
+.hero .tel{
+  font-family:"Noto Sans JP", sans-serif; font-size:1.2rem; font-weight:500; letter-spacing:0.06em;
+  color:var(--moss-deep); margin-bottom:18px; z-index:1; border-bottom:1px solid var(--gold); padding-bottom:4px;
+}
+
+/* ===== ナビ CTAボタン ===== */
+.nav-cta a{
+  background:var(--moss); color:var(--bg-washi) !important;
+  padding:9px 20px; letter-spacing:0.06em; white-space:nowrap; display:inline-block;
+}
+.nav-cta a::after{display:none;}
+.nav-cta a:hover{background:var(--moss-deep);}
+@media (max-width:780px){
+  .nav-cta a{display:inline-block; margin:14px 28px; text-align:center;}
+}
+
+/* ===== LINE案内 ===== */
+.line-box{
+  display:grid; grid-template-columns:180px 1fr; gap:36px; align-items:center;
+  border:1px solid var(--line); background:var(--bg-washi); padding:36px;
+}
+.line-box .frame-photo{aspect-ratio:1/1;}
+.line-box p{font-size:1rem; margin-bottom:1em; color:var(--ink);}
+.line-box p:last-child{margin-bottom:0;}
+@media (max-width:780px){
+  .line-box{grid-template-columns:1fr; text-align:center; padding:28px;}
+  .line-box .frame-photo{max-width:180px; margin:0 auto;}
+}
+.line-inline{display:flex; align-items:flex-start; gap:24px;}
+.line-qr{width:120px; height:120px; flex-shrink:0;}
+.line-inline p{font-size:1rem; color:var(--ink); flex:1;}
+@media (max-width:600px){
+  .line-inline{flex-direction:column; align-items:center; text-align:center;}
+}
+
+/* ===== リンクカード(配信・外部案内など) ===== */
+.link-cards{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+.link-card{
+  display:block; border:1px solid var(--line); padding:30px; background:var(--bg-washi);
+  transition:border-color .25s ease;
+}
+.link-card:hover{border-color:var(--gold);}
+.link-card h4{font-size:1.05rem; font-weight:700; color:var(--moss-deep); margin-bottom:10px; letter-spacing:0.03em;}
+.link-card p{font-size:0.95rem; color:var(--ink); margin-bottom:14px;}
+.link-card .arrow{font-family:"Noto Sans JP", sans-serif; font-size:0.75rem; color:var(--gold); letter-spacing:0.06em;}
+@media (max-width:780px){ .link-cards{grid-template-columns:1fr;} }
+
+/* ===== 引用ブロック(教え) ===== */
+.quote-block{
+  border:1px solid var(--line); border-left:3px solid var(--gold); padding:24px 30px; background:transparent;
+  font-size:0.98rem; line-height:1.9; max-width:660px; margin:0 auto; color:var(--ink);
+}
+.quote-block .cite{
+  display:block; margin-top:16px; font-family:"Noto Sans JP", sans-serif;
+  font-size:0.72rem; letter-spacing:0.1em; color:var(--gold);
+}
+.more-link{
+  display:block; text-align:center; margin-top:30px;
+  font-family:"Noto Sans JP", sans-serif; font-size:0.8rem; letter-spacing:0.08em;
+  color:var(--moss-deep);
+}
+.more-link span{border-bottom:1px solid var(--gold); padding-bottom:3px;}
+
+/* ===== 沿革(西円寺の歴史) ===== */
+.history-list{display:flex; flex-direction:column;}
+.history-item{
+  display:grid; grid-template-columns:130px 1fr; gap:28px;
+  padding:26px 0; border-top:1px solid var(--line);
+}
+.history-list .history-item:last-child{border-bottom:1px solid var(--line);}
+.history-item .yr{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.8rem; letter-spacing:0.06em; color:var(--gold);
+}
+.history-item p{font-size:1rem; color:var(--ink);}
+@media (max-width:780px){ .history-item{grid-template-columns:1fr; gap:8px;} }
+
+/* ===== 供養プラン(お墓・合同墓・納骨堂) ===== */
+.plan-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+.plan-card{
+  border:1px solid var(--line); background:var(--bg-washi); padding:34px 26px;
+  display:flex; flex-direction:column; gap:16px;
+}
+.plan-card .num{font-family:"Noto Sans JP", sans-serif; font-size:0.72rem; letter-spacing:0.12em; color:var(--gold);}
+.plan-card h4{font-size:1.12rem; font-weight:700; color:var(--moss-deep); letter-spacing:0.03em;}
+.plan-card .price{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.88rem; color:var(--gold);
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:12px 0; line-height:1.8;
+}
+.plan-card p{font-size:0.96rem; color:var(--ink);}
+.plan-card ul{font-size:0.92rem; color:var(--ink); padding-left:1.1em; display:flex; flex-direction:column; gap:5px;}
+.plan-card .plus{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.86rem; color:var(--moss-deep);
+  border-top:1px dashed var(--line); padding-top:10px; margin-top:-4px;
+}
+@media (max-width:900px){ .plan-grid{grid-template-columns:1fr;} }
+
+/* ===== お墓の詳細(縦並び) ===== */
+.plan-seq{display:flex; flex-direction:column; gap:64px; max-width:800px; margin:0 auto;}
+.plan-item h4{font-size:1.25rem; font-weight:700; color:var(--moss-deep); letter-spacing:0.04em; margin-bottom:22px;}
+.plan-item p{font-size:1rem; color:var(--ink); margin-bottom:1em;}
+.plan-list{list-style:none; display:flex; flex-direction:column; gap:12px; margin:20px 0;}
+.plan-list li{font-size:0.96rem; color:var(--ink); line-height:1.8; padding-left:1.2em; position:relative;}
+.plan-list li::before{content:"・"; position:absolute; left:0; color:var(--gold);}
+.plan-note{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.85rem; color:var(--moss-deep);
+  border-top:1px dashed var(--line); padding-top:14px; margin-top:10px; line-height:1.8;
+}
+
+/* ===== 比較表 ===== */
+.compare-table-wrap{overflow-x:auto; margin-top:20px;}
+.compare-table{
+  width:100%; border-collapse:collapse; min-width:640px;
+  font-family:"Noto Sans JP", sans-serif; font-size:0.88rem;
+}
+.compare-table th, .compare-table td{
+  border:1px solid var(--line); padding:14px 16px; text-align:left; vertical-align:top;
+  line-height:1.7;
+}
+.compare-table thead th{
+  background:var(--moss-deep); color:var(--bg-washi); font-weight:500;
+  text-align:center; letter-spacing:0.04em;
+}
+.compare-table tbody th{
+  background:var(--bg-washi-soft); color:var(--moss-deep); font-weight:700;
+  white-space:nowrap;
+}
+
+/* ===== 手順リスト ===== */
+.step-list{counter-reset:step; display:flex; flex-direction:column; gap:22px; max-width:700px; margin:0 auto;}
+.step-list > li{
+  list-style:none; position:relative; padding-left:46px; font-size:1rem; color:var(--ink); line-height:1.85;
+}
+.step-list > li::before{
+  counter-increment:step; content:counter(step);
+  position:absolute; left:0; top:-2px;
+  width:28px; height:28px; border:1px solid var(--gold); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:"Noto Sans JP", sans-serif; font-size:0.78rem; color:var(--gold);
+}
+.sub-list{list-style:none; margin-top:12px; display:flex; flex-direction:column; gap:12px;}
+.sub-list li{font-size:0.95rem; color:var(--ink); line-height:1.8;}
+
+/* ===== リード引用(廟所) ===== */
+.lead-quote{text-align:center; max-width:660px; margin:0 auto 60px; font-size:1.1rem; line-height:2.1;}
+.lead-quote .cite{
+  display:block; margin-top:22px; font-family:"Noto Sans JP", sans-serif;
+  font-size:0.74rem; letter-spacing:0.1em; color:var(--gold);
+}
+
+/* ===== 縦書き引用(廟所) ===== */
+.vertical-quote-wrap{
+  display:flex; flex-direction:row-reverse; align-items:flex-end; justify-content:center; gap:20px;
+  border:1px solid var(--line); background:var(--bg-washi);
+  padding:36px 24px; margin-bottom:48px; overflow-x:auto;
+}
+.vertical-quote{
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-size:1.1rem; line-height:2.3; letter-spacing:0.06em;
+  color:var(--ink); max-height:420px;
+}
+.vertical-quote-cite{
+  writing-mode:vertical-rl;
+  font-family:"Noto Sans JP", sans-serif;
+  font-size:0.74rem; letter-spacing:0.1em; color:var(--gold);
+}
+@media (max-width:600px){
+  .vertical-quote{font-size:0.95rem; max-height:340px;}
+}
+
+/* ===== お問合せフォーム ===== */
+.contact-form{max-width:700px; margin:0 auto; display:flex; flex-direction:column; gap:30px;}
+.form-group label{
+  display:block; font-family:"Noto Sans JP", sans-serif; font-size:0.8rem;
+  letter-spacing:0.06em; color:var(--moss-deep); margin-bottom:10px;
+}
+.form-group input[type=text],
+.form-group input[type=tel],
+.form-group input[type=email],
+.form-group textarea{
+  width:100%; border:1px solid var(--line); background:var(--bg-washi); padding:12px 14px;
+  font-family:"Noto Sans JP", sans-serif; font-size:0.9rem; color:var(--ink);
+}
+.form-group textarea{min-height:140px; resize:vertical;}
+.check-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px 20px;}
+.simple-list{list-style:none; display:flex; flex-direction:column; gap:12px;}
+.simple-list li{
+  font-size:0.98rem; color:var(--ink); padding-left:1.3em; position:relative;
+}
+.simple-list li::before{content:"■"; position:absolute; left:0; color:var(--moss); font-size:0.7em; top:0.3em;}
+.check-grid label{
+  display:flex; align-items:flex-start; gap:8px; font-family:"Noto Sans JP", sans-serif;
+  font-size:0.85rem; color:var(--ink); opacity:0.9;
+}
+.check-grid input{margin-top:4px;}
+.consent{display:flex; align-items:flex-start; gap:10px; font-family:"Noto Sans JP", sans-serif; font-size:0.85rem;}
+.consent a{color:var(--moss-deep); border-bottom:1px solid var(--gold);}
+.submit-btn{
+  align-self:center; background:var(--moss); color:var(--bg-washi); border:none;
+  padding:15px 52px; font-family:"Noto Sans JP", sans-serif; font-size:0.9rem; letter-spacing:0.12em;
+  cursor:pointer; transition:background .25s ease;
+}
+.submit-btn:hover{background:var(--moss-deep);}
+.form-thanks{display:none; text-align:center; padding:60px 24px; font-size:1.02rem; color:var(--moss-deep);}
+.form-thanks.show{display:block;}
+.contact-form.hide{display:none;}
+@media (max-width:780px){ .check-grid{grid-template-columns:1fr;} }
+
+/* ===== 年間日程テーブル ===== */
+.table-scroll{overflow-x:auto;}
+.schedule-table{width:100%; border-collapse:collapse; margin-top:18px; font-size:0.86rem; min-width:520px;}
+.schedule-table th, .schedule-table td{
+  border-top:1px solid var(--line); padding:14px 12px; text-align:left; vertical-align:top;
+}
+.schedule-table th{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.72rem; letter-spacing:0.06em; color:var(--gold); font-weight:500;
+}
+.schedule-table tbody tr:last-child td{border-bottom:1px solid var(--line);}
+
+/* ===== プライバシーポリシー本文 ===== */
+.policy{max-width:760px; margin:0 auto;}
+.policy h3{
+  font-size:1.05rem; font-weight:700; color:var(--moss-deep); letter-spacing:0.04em;
+  margin:2.4em 0 0.8em;
+}
+.policy h3:first-child{margin-top:0;}
+.policy p{font-size:1rem; margin-bottom:1.2em; color:var(--ink);}
+.policy ul{font-size:1rem; color:var(--ink); padding-left:1.4em; margin-bottom:1.2em; display:flex; flex-direction:column; gap:6px;}
+
+/* ===== 追加 (20261024) ===== */
+.sns-buttons{display:flex; flex-wrap:wrap; gap:12px;}
+.sns-buttons a{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.85rem; letter-spacing:0.05em;
+  border:1px solid var(--moss-deep); color:var(--moss-deep); padding:7px 22px;
+}
+.sns-buttons a:hover{background:var(--moss-deep); color:#fff;}
+.text-link{border-bottom:1px solid var(--gold);}
+.sub-head{font-size:1.3rem; font-weight:700; letter-spacing:0.08em; color:var(--moss-deep);}
+.link-lines{display:flex; flex-direction:column; gap:10px; align-items:center; margin:36px 0 0; font-size:1.05rem;}
+.link-lines a{border-bottom:1px solid var(--gold); padding-bottom:2px; color:var(--moss-deep);}
+.photo-fit{display:block; width:100%; height:auto;}
+.frame-photo.natural{aspect-ratio:auto; display:block; padding:14px;}
+.frame-photo.natural .inner{height:auto; display:block;}
+.frame-photo.natural .inner img{height:auto; object-fit:contain;}
+.frame-photo.same-h{aspect-ratio:auto; width:fit-content; max-width:100%; padding:10px;}
+.frame-photo.same-h .inner{height:auto;}
+.frame-photo.same-h .inner img{width:auto; height:220px; max-width:100%; object-fit:cover;}
+.photo-caption{
+  font-family:"Noto Sans JP", sans-serif; font-size:0.74rem; line-height:1.7; color:var(--moss-deep);
+  max-width:720px; margin:10px auto 0; text-align:left;
+}
+.sub-list.dotted li{padding-left:1.1em; position:relative;}
+.sub-list.dotted li::before{content:"・"; position:absolute; left:0; color:var(--gold);}
